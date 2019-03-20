@@ -1,0 +1,42 @@
+<app-header-home></app-header-home>
+<section class="main-container">
+
+    <div class="row">
+        <div class="jumbotron">
+            <h1>TIMELIN</h1>
+            <p>
+                Ferramenta desenvolvida para salvar a ordem dos 
+                  acontecimentos na sua vida, adicione e edite fatos importantes... 
+                  Não tente lembrar quando tudo ocorreu, tenha sua
+                  própria linha do tempo aqui na TIMELIN.
+            </p>
+         
+        </div>
+        <hr />
+    </div>
+    <hr />
+   
+
+    <div class="row">
+        <div>
+            <h2 class="jumbotron">O QUE DIZEM NOSSOS CLIENTES?</h2>
+            <ngb-carousel class="afasta">
+                <ng-template ngbSlide *ngFor="let slider of sliders">
+                    <div class="row featurette">
+                        <div class="col-md-7">
+                          <h2 class="featurette-heading">{{slider.label}} <span class="text-muted">{{slider.job}}</span></h2>
+                          <p class="lead">{{slider.text}}</p>
+                        </div>
+                        <div class="col-md-5">
+                          <img class="img-fluid mx-auto d-block" data-src="holder.js/500x350/auto" alt="500x400" style="width: 500px; height: 400px;" [src]="slider.imagePath" data-holder-rendered="true">
+                        </div>
+                    </div>
+                </ng-template>
+            </ngb-carousel>
+        </div>
+    </div>
+    <hr />
+
+    <app-maps></app-maps>
+    
+</section>

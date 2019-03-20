@@ -1,0 +1,188 @@
+<div class="card-body">
+    <ul class="timeline" *ngFor="let entry of userAcc; let i = index">
+      <!-- Modal de ediçao !-->
+        <ng-template #edit let-modal>
+            <div class="modal-header">
+              <h4 class="modal-title" id="modal-basic-title">Adicione acontecimento</h4>
+              <button type="button" class="close" aria-label="Close" (click)="modal.close('Cross click')">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                <div class="form-group">
+                  <label for="editNome">Nome do acontecimento</label>
+                    <input value="" id="editNome" class="form-control" placeholder="Digite um nome" name="editNome">
+                </div>
+                <div class="form-group">
+                  <label for="editDesc">Descriçao do acontecimento</label>
+                    <input value="" id="editDesc" class="form-control" placeholder="Adicione uma descricao" name="editDesc">
+                </div>
+                <div class="form-group">
+                  <label for="editDate">Data do Acontecimento</label>
+                  <div class="input-group">
+                    <input value="" id="editDate" class="form-control" placeholder="yyyy-mm-dd" name="editDate" ngbDatepicker #dp="ngbDatepicker">
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+                    </div>
+                  </div>
+                </div>
+                    <div class="form-group">
+                      <label for="editCor">Escolha uma cor</label>
+                      <div class="input-group">
+                            <input  type="color" id="editCor" name="editCor" value="#e66465">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="descOfAcon">Digite as tags no formato: "nome-cor" sepeparadas por espaco</label>
+                        <div class="input-group">
+                          <input value="" id="descOfAcon" class="form-control" placeholder="Adicione uma descricao" name="descAcon">
+                        </div>
+                    </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-dark" (click)="editaDados(i)">Salvar</button>
+              <button type="button" class="btn btn-outline-dark" (click)="modal.close('edit')">Fechar</button>
+            </div>
+          </form>
+        </div>
+       </ng-template>
+    <!-- Fim do Modal de ediçao !-->
+        <li *ngIf="i % 2 == 0">
+            <div class="timeline-badge"><i class="fa fa-check"></i>
+            </div>
+                <div class="timeline-heading">
+                  <div class="card">
+                    <button type="button" [style.background-color]="entry.cor" class="btn btn-outline-primary" (click)="expandRow(i)"
+                    [attr.aria-expanded]="isCollapsed"  aria-controls="collapseExample">
+                    <h4 class="timeline-title">{{entry.nome}}</h4>
+                  </button>
+                  <span *ngIf="i === expandedIndex">
+                  <div  id="collapseExample"  [ngbCollapse]="isCollapsed">
+                      <div class="card" [style.background-color]="entry.cor">
+                          <div class="card-body" >
+                              <div class="timeline-body">
+                                  <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{entry.data}}</small>
+                                  <p>{{entry.desc}}</p>
+                              </div>
+                              <hr>
+                            </div>
+                            <div class="tags" *ngFor="let tags of entry.tag; let j = index">
+                                <p [style.color]="tags.cor"> {{tags.nome}}</p>
+                            </div> 
+                          <div class="buttons">
+                            
+                              <button class="btn btn-lg btn-outline-primary" (click)="open(edit, i, 'edit')"><i class="fa fa-fw fas fa-edit"></i></button>
+                              <button class="btn btn-lg btn-outline-primary" (click)="open(delete, i)"><i class="fa fa-fw fas fa-trash"></i></button>
+                            </div>
+                      </div>
+                   </div>
+                  </span>
+                </div>
+              </div>
+        </li>
+        <li *ngIf="i % 2 == 1" class="timeline-inverted">
+            <div class="timeline-badge"><i class="fa fa-check"></i>
+            </div>
+
+                <div class="timeline-heading">
+                  <div class="card">
+                    <button type="button" [style.background-color]="entry.cor" class="btn btn-outline-primary" (click)="expandRow(i)"
+                    [attr.aria-expanded]="isCollapsed"  aria-controls="collapseExample">
+                    <h4 class="timeline-title">{{entry.nome}}</h4>
+                  </button>
+                  <span *ngIf="i === expandedIndex">
+                  <div  id="collapseExample"  [ngbCollapse]="isCollapsed">
+                      <div class="card" [style.background-color]="entry.cor">
+                          <div class="card-body" >
+                              <div class="timeline-body">
+                                  <p><small class="text-muted"><i class="fa fa-clock-o"></i> {{entry.data}}</small>
+                                  <p>{{entry.desc}}</p>
+                              </div>
+                              <hr>
+                            </div>
+                            <div class="tags" *ngFor="let tags of entry.tag; let j = index">
+                                <p [style.color]="tags.cor"> {{tags.nome}}</p>
+                            </div> 
+                          <div class="buttons">
+                            
+                              <button class="btn btn-lg btn-outline-primary" (click)="open(edit, i, 'edit')"><i class="fa fa-fw fas fa-edit"></i></button>
+                              <button class="btn btn-lg btn-outline-primary" (click)="open(delete, i)"><i class="fa fa-fw fas fa-trash"></i></button>
+                            </div>
+                      </div>
+                   </div>
+                  </span>
+                </div>
+              </div>
+        </li>
+    </ul>        
+</div>
+
+<!-- Modal de Adiçao !-->
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Adicione acontecimento</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.close()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+        <form>
+        <div class="form-group">
+          <label for="nomeAdd">Nome do acontecimento</label>
+            <input value="" id="nomeAdd" class="form-control" placeholder="Digite um nome" name="nomeAcon">
+        </div>
+        <div class="form-group">
+          <label for="descOfAcon3">Descriçao do acontecimento</label>
+            <input value="" id="descOfAcon3" class="form-control" placeholder="Adicione uma descricao" name="descAcon3">
+        </div>
+        <div class="form-group">
+          <label for="dateOfAcon">Data do Acontecimento</label>
+          <div class="input-group">
+            <input value="" id="dateOfAcon" class="form-control" placeholder="yyyy-mm-dd" name="dp" ngbDatepicker #dp="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="dp.toggle()" type="button"></button>
+            </div>
+          </div>
+        </div>
+            <div class="form-group">
+              <label for="corEsc">Escolha uma cor</label>
+              <div class="input-group">
+                    <input  type="color" id="corEsc" name="corEsc" value="#e66465">
+              </div>
+            </div>
+            <div class="form-group">
+                <label for="descOfAcon">Digite as tags no formato: "nome-cor" sepeparadas por espaco</label>
+                <div class="input-group">
+                  <input value="" id="descOfAcon" class="form-control" placeholder="Adicione uma descricao" name="descAcon">
+                </div>
+            </div>
+    
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="passaDados()">Salvar</button>
+      <button type="button" class="btn btn-outline-dark" (click)="modal.close('Add')">Fechar</button>
+    </div>
+  </form>
+</div>
+  </ng-template>
+<!-- Fim do Modal de ediçao !-->
+
+<!-- Modal de remoçao !-->
+  <ng-template #delete let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Deseja deletar esse acontecimento?</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.close('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+       
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-dark" (click)="modal.close('Yes')">Yes</button>
+          <button type="button" class="btn btn-outline-dark" (click)="modal.close('No')">No</button>
+        </div>
+    </ng-template>
+<!--  Fim Modal de remoçao !-->
+   
+
+  <div id=plusButton>
+    <button class="btn btn-lg btn-outline-primary" (click)="open(content)"><i class="fa fa-fw fa-plus-circle"></i></button>
+  </div>

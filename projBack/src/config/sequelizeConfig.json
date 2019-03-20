@@ -1,0 +1,10 @@
+{
+  "database": "timeGibao",
+  "username": "postgres",
+  "password": "imp123",
+  "params": {
+    "host": "localhost",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  }
+}

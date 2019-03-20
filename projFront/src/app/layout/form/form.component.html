@@ -1,0 +1,35 @@
+<div [@routerTransition]>
+    <app-page-header [heading]="'Sua Conta'" [icon]="'fa-edit'"></app-page-header>
+
+    <div class="row">
+        <div class="col-lg-6">
+
+            <form role="form">
+                <fieldset class="form-group">
+                    <label>Nome Completo</label>
+                    <input class="form-control" id="fullName" value="{{usuario.fullNome}}">
+                </fieldset>
+                <fieldset class="form-group">
+                        <label>Email</label>
+                        <input class="form-control" id="email" value="{{usuario.email}}">
+                </fieldset>
+                <fieldset class="form-group">
+                        <label>Digite a Senha atual:</label>
+                        <input class="form-control" id="senhaAtual" placeholder="Enter text">
+                </fieldset>
+                <fieldset class="form-group">
+                        <label>Digite a Nova Senha:</label>
+                        <input class="form-control" id="novaSenha" placeholder="Enter text">
+                </fieldset>
+                <fieldset class="form-group">
+                        <label>Confirme a Nova senha:</label>
+                        <input class="form-control" id="reNovaSenha" placeholder="Enter text">
+                </fieldset>
+
+          
+
+            <button type="button" (click)="alteraUser()" class="btn btn-secondary">Salvar</button>
+        </form>
+        </div>
+    </div>
+</div>
