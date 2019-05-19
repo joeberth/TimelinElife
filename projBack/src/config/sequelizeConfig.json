@@ -1,7 +1,7 @@
 {
   "database": "timeGibao",
   "username": "postgres",
-  "password": "imp123",
+  "password": "",
   "params": {
     "host": "localhost",
     "dialect": "postgres",
